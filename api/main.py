@@ -3,6 +3,19 @@ import os, psycopg2
 
 app = FastAPI()
 
+# Allow only your frontend origin
+origins = [
+    "http://20.66.106.206",  # React frontend LB
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,      # or ["*"] to allow all (not recommended for prod)
+    allow_credentials=True,
+    allow_methods=["*"],        # GET, POST, PUT, DELETE...
+    allow_headers=["*"],        # Authorization, Content-Type...
+)
+
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT", "5432")
 DB_NAME = os.getenv("DB_NAME")

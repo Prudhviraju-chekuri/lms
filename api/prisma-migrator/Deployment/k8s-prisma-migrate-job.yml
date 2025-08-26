@@ -9,7 +9,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: migrate
-          image: prchekuri/lms-prisma-migrate:latest
+          image: prchekuri/lms-db-migrator:latest
           env:
             - name: DATABASE_URL
               valueFrom:

@@ -9,4 +9,4 @@ data:
   DB_NAME: postgres
   DB_PORT: "5432"
   DB_USER: postgres
-  FRONTEND_URL : http://20.66.106.206/
+  FRONTEND_URL: "http://20.66.106.206"

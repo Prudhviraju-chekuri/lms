@@ -7,7 +7,7 @@ spec:
   backoffLimit: 0
   template:
     spec:
-      restartPolicy: OnFailure
+      restartPolicy: Never
       containers:
         - name: migrate
           image: prchekuri/lms-db-migrator:latest

@@ -3,11 +3,10 @@ kind: Job
 metadata:
   name: prisma-migrate
 spec:
-  ttlSecondsAfterFinished: 86400
-  backoffLimit: 0
+  backoffLimit: 1
   template:
     spec:
-      restartPolicy: Never
+      restartPolicy: OnFailure
       containers:
         - name: migrate
           image: prchekuri/lms-db-migrator:latest

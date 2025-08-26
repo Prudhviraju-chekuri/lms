@@ -1,7 +1,7 @@
-from . import healthchecks
+from . import health_checks
 from . import courses
 
 all_routers = [
-    ("", healthchecks.router),
+    ("", health_checks.router),
     ("/courses", courses.router),
 ]

@@ -1,5 +1,5 @@
-from app.routers import healthchecks
-from app.routers import courses
+from . import healthchecks
+from . import courses
 
 all_routers = [
     ("", healthchecks.router),

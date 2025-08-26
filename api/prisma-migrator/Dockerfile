@@ -4,8 +4,8 @@ WORKDIR /app
 # Install tini (optional, for better signal handling in containers)
 RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
-COPY package*.json ./
-RUN npm ci --omit=dev
+COPY package.json ./
+RUN npm install --omit=dev
 
 COPY prisma ./prisma
 

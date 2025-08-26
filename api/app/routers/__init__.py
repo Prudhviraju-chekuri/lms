@@ -1,7 +1,7 @@
-from app.routers import healthchecks, courses
+from app.routers import healthchecks
+from app.routers import courses
 
-# Expose all routers in one place
 all_routers = [
-    ("/", healthchecks.router),
+    ("", healthchecks.router),
     ("/courses", courses.router),
 ]

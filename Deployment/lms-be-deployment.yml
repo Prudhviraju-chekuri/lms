@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: lms-be-cont
-        image: prchekuri/lms-be
+        image: prchekuri/lms-be-python
         ports:
           - containerPort: 4000
         envFrom:

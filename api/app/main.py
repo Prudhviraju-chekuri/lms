@@ -32,8 +32,8 @@ class LoggingMiddleware(BaseHTTPMiddleware):
 app.add_middleware(LoggingMiddleware)
 
 # Routers
-app.include_router(healthchecks.router, prefix="")
-app.include_router(courses.router, prefix="/courses")
+for prefix, router in all_routers:
+    app.include_router(router, prefix=prefix)
 
 # Error handlers
 app.add_exception_handler(Exception, error_handler)

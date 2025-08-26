@@ -1,0 +1,10 @@
+{
+  "name": "prisma-migrator",
+  "private": true,
+  "scripts": {
+    "migrate": "prisma migrate deploy"
+  },
+  "dependencies": {
+    "prisma": "4.5.0"
+  }
+}

@@ -1,15 +1,14 @@
-# Docker file nodejs azure app services
-FROM node:latest
-# Create app directory
+FROM python:3.11-slim
+
 WORKDIR /app
-# Install app dependencies
-COPY package*.json ./
-RUN npm install
-# Build app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
-RUN npx prisma generate
-RUN npm run build
-# Expose port
-EXPOSE 3000
-# Start app
-CMD [ "npm", "start" ]
+
+# Expose whatever port is defined by PORT env variable (optional, just for docs)
+EXPOSE ${PORT}
+
+# Use shell form so environment variables are expanded at runtime
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT}

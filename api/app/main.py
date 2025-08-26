@@ -1,8 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 import logging
-import os
+import re
 
 from app.core.config import get_config
 from app.middleware.error_handler import error_handler
@@ -13,7 +13,7 @@ from app.routers import all_routers
 app = FastAPI()
 
 # Middlewares (CORS)
-origins = [get_config("FRONTEND_URL", "*")]  # Configurable via ConfigMap
+origins = [get_config("FRONTEND_URL", "*")]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -22,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Logging middleware (like morgan)
+# Logging middleware
 class LoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         logging.info(f"{request.method} {request.url}")
@@ -30,6 +30,19 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         return response
 
 app.add_middleware(LoggingMiddleware)
+
+# 🔥 Middleware to normalize duplicate slashes
+class SlashNormalizerMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        scope = request.scope
+        path = scope.get("path", "")
+        # Replace multiple slashes with a single slash
+        normalized_path = re.sub(r"/+", "/", path)
+        if normalized_path != path:
+            scope["path"] = normalized_path
+        return await call_next(request)
+
+app.add_middleware(SlashNormalizerMiddleware)
 
 # Routers
 for prefix, router in all_routers:

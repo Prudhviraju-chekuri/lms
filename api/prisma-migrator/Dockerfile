@@ -1,8 +1,12 @@
-FROM node:20-alpine
+FROM node:20-bullseye-slim
 WORKDIR /app
-RUN apk add --no-cache openssl1.1
+
+# Install tini (optional, for better signal handling in containers)
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+
 COPY package*.json ./
 RUN npm ci --omit=dev
+
 COPY prisma ./prisma
-# Prisma CLI downloads engines on first run if needed
+
 CMD ["npm", "run", "migrate"]

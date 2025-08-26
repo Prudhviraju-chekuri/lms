@@ -7,7 +7,7 @@ import os
 from app.core.config import get_config
 from app.middleware.error_handler import error_handler
 from app.middleware.not_found import not_found_handler
-from app.routers import healthchecks, courses
+from app.routers import all_routers
 
 # Init app
 app = FastAPI()

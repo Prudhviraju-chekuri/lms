@@ -4,10 +4,10 @@ from starlette.middleware.base import BaseHTTPMiddleware
 import logging
 import os
 
-from core.config import get_config
-from middleware.error_handler import error_handler
-from middleware.not_found import not_found_handler
-from routers import healthchecks, courses
+from app.core.config import get_config
+from app.middleware.error_handler import error_handler
+from app.middleware.not_found import not_found_handler
+from app.routers import healthchecks, courses
 
 # Init app
 app = FastAPI()
